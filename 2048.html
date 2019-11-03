@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head> 
+    <title> 2048 </title>
+</head>
+
+<body>
+    <canvas id="canvas" width="400px" height="400px" 
+    align="center" style="border: 1px solid black"></canvas>
+    <script>
+
+//show board 4x4
+    function display(){
+        console.log(board);
+        for(var i=0; i<4; i++){
+            for(var j=0; j<4; j++){
+                if(board[i][j]!=0)
+                    ctx.fillStyle=colors[board[i][j]];
+                else
+                    ctx.fillStyle="azure";
+                
+                ctx.fillRect(i*100, j*100, 99, 99);
+                ctx.beginPath();
+                ctx.rect(i*100, j*100, 100, 100);
+                ctx.stroke();
+                if(board[i][j]!=0){
+                    ctx.font="30px Arial";
+                    ctx.fillStyle="black";
+                    ctx.textAlign="center";
+                    ctx.fillText(board[i][j], i*100+50, j*100+60)
+                }
+                
+            }
+        }
+     }
+
+
+     function gameOver(){
+         //TODO
+     }
+    canvas=document.getElementById("canvas");
+    ctx=canvas.getContext("2d");
+
+    var board=[[0, 0, 0, 0], [0, 0, 0, 2],
+               [0, 0, 0, 0], [0, 0, 0, 0]];
+    var colors=["gray", "yellow", "orange", "red",
+                "bisque", "coral","blue", "palegreen", 
+                "pink", "purple", "linen", "brown"]
+
+    display();
+
+     no_moves=0;
+
+    window.addEventListener('keydown', function(kbe){
+        if(no_moves=1)
+            return;
+        
+        pressed=kbe.keyCode;
+        if(pressed==37){
+            kbe.preventDefault();
+            left();
+        }
+        if(pressed==38){
+            kbe.preventDefault();
+            up();
+        }
+        if(pressed==39){
+            kbe.preventDefault();
+            right();
+        }
+        if(pressed==40){
+            kbe.preventDefault();
+            down();
+        }
+
+        var empty=0;
+
+        for(var i=0; i<4; i++)
+            for(var j=0; j<4; j++)
+                if(board[i][j]==0)
+                    empty++;
+        if(empty==0){
+            gameOver();
+            return;
+        }
+        else{
+            var n=Math.floor(Math.random()*16);
+            var m;
+            while(n<32){
+                m=n % 16;
+                if(board[Math.floor(m/4)][m%4]==0){
+                    board[Math.floor(m/4)][m%4]=2;
+                    break;
+                }
+            }
+        }
+        display();
+    });
+
+    </script>
+</body>
+</html>
