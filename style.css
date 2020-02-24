@@ -1,0 +1,44 @@
+body {
+  background-color: aquamarine;
+}
+
+h3 {
+  text-align: center;
+  font-size: 40px;
+  color: cadetblue;
+}
+        
+table, td {
+  background-color: grey;
+  border: 2px solid blue;
+  border-collapse: collapse;
+  padding: 50px;
+  text-align: center;
+  font-size: 15px;
+}
+            
+#start {
+  background-color: orange;
+  font-size: 20px;
+  width: 100px;
+  height: 35px;
+  display: inline-block;
+  margin-right: 40px;
+  align-content: flex-end;
+}
+
+#restart {
+  background-color: orange;
+  font-size: 18px;
+  width: 100px;
+  height: 35px;
+  display: inline-block;
+  margin-left: 40px;
+}    
+
+#player {
+  display: none;
+  position: absolute;
+  top: 75%;
+  left: 42%;
+}

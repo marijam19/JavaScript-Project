@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <meta charset="UTF-8">
+        <title>TIC TAC TOE</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <body>
+        <h3> TIC TAC TOE </h3>
+        <br><br>
+    
+        <div class="game_board" align="center">
+            <table style="width:22%" class="tic-tac-toe">
+                <tr>
+                    <td class="field" id = 0 onClick="reply_click(this.id)"> </td>
+                    <td class="field" id = 1 onClick="reply_click(this.id)"> </td>
+                    <td class="field" id = 2 onClick="reply_click(this.id)"> </td>
+                </tr>
+                <tr>
+                    <td class="field" id = 3 onClick="reply_click(this.id)"> </td>
+                    <td class="field" id = 4 onClick="reply_click(this.id)"> </td>
+                    <td class="field" id = 5 onClick="reply_click(this.id)"> </td>
+                </tr>
+                <tr>
+                    <td class="field" id = 6 onClick="reply_click(this.id)"> </td>
+                    <td class="field" id = 7 onClick="reply_click(this.id)"> </td>
+                    <td class="field" id = 8 onClick="reply_click(this.id)"> </td>
+                </tr>
+            </table>
+            <br>
+            <br>
+            <button type="button" id="start" onclick="start_game()">Start</button>
+            <button type="button" id="restart" onclick="restart_game()"><i class="w3-margin-left fa fa-refresh"></i></button>
+        </div>
+
+        <br>
+        
+        <div id="player">
+           <input type="text" id="p_name" name="p_name" value="Enter your name"> 
+        </div>    
+
+        <script src="script.js"> </script>
+    </body>
+</html>
