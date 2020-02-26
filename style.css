@@ -36,6 +36,10 @@ table, td {
   margin-left: 40px;
 }    
 
+#check {
+  background-color: orange;
+}    
+
 #player {
   display: none;
   position: absolute;

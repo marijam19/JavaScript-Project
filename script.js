@@ -9,6 +9,15 @@ var fields = document.querySelectorAll('.field');
 
 fields.forEach(field => field.addEventListener('click', game));
 
+function loadUsername() {
+    let username = document.getElementById("p_name").value;
+    
+    console.log(username);       
+    return username;
+};
+
+let username=loadUsername();
+
 function start_game() {
   let enter_name = document.getElementById("player");
   if(enter_name.style.display === "none"){
@@ -21,6 +30,7 @@ function start_game() {
 
 // igrac je prvi na potezu
 function game() {
+  document.getElementsByClassName("field").hidden = false;  
   let ind_player = player_turn();
   if(ind_player)
       computer_turn();
@@ -98,7 +108,7 @@ function computer_turn() {
   }
   else if(winner == 2) {
       alert("Nazalost, niste uspeli da pobedite");
-      sendResult(username, moves);
+      sendResult(username(), moves);
   }
   
   return;
@@ -130,22 +140,21 @@ function check_board() {
     return;
 }
 
-//function sendResult(username, moves) {
-//  fields.forEach(field => field.removeEventListener('click', game));
-//}
-
 // id polja na koje je kliknuto
 function reply_click(clicked_id) {
     id = clicked_id;
 }
 
 function restart_game(){
-  let ind_player=player_turn();
-  let moves = 0; 
-  let clicked_fields = [0, 0, 0, 
+  ind_player=player_turn();
+  moves = 0; 
+  clicked_fields = [0, 0, 0, 
                         0, 0, 0, 
                         0, 0, 0];
-  let winner=0;
+  winner=0;
+  document.getElementById("p_name").value="Enter your name";
+  for(let i=0; i<9; i++)
+    document.getElementById(i).innerHTML = "";
 }
 
 //pozovamo kad neko pobedi
@@ -171,35 +180,5 @@ const sendResult = async (username, moves) => {
     }
 }
 
-// pokupi rezultate
-const getResult = async () => {
-    try {
-        const URL = 'http://localhost:3002/';
-        const response = await fetch(URL, {
-            method : 'GET',
-            headers : {
-                'Content-Type': 'application/json'
-            }
-        });
-        const jsonResponse = await response.json();
-        console.log(jsonResponse);   
-             
-    } catch (err) {
-        console.log(err);
-    }
-};
-
-function loadUsername() {
-    let person = prompt("Enter your name", "");
-    let username = "";
-
-    if (person == null || person == "") {
-        username = "Unknown";
-    } else {
-        username = person;
-    }
-    
-    return username;
-};
 
 //docker-compose -f -docker-compose.yml up
