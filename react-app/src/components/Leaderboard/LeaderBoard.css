@@ -1,0 +1,38 @@
+body {
+    background-color: royalblue;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#header {
+    color: dodgerblue;
+    text-align: center;
+}
+.mainWrapper {
+    margin: auto;
+    margin-top: 50px;
+    width: 60%;
+}
+
+.board {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  .board td, .board th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .board tr:nth-child(even){background-color: aqua;}
+  .board tr:nth-child(odd){background-color: deepskyblue;}
+  
+  .board th {
+    padding-top: 11px;
+    padding-bottom: 11px;
+    background-color: blue;
+    color: white;
+    text-align: center;
+  }
+  
+  

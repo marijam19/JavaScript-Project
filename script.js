@@ -1,11 +1,11 @@
-var fields = document.querySelectorAll('.field');
-
 let id; //id kliknutog polja
 let moves = 0; //broj poteza
 let clicked_fields = [0, 0, 0,  //detektujemokoje smo polje kliknuli 
                       0, 0, 0, 
                       0, 0, 0];
 let winner;
+
+var fields = document.querySelectorAll('.field');
 
 fields.forEach(field => field.addEventListener('click', game));
 
@@ -50,12 +50,12 @@ function player_turn() {
       check_board();
       if(winner == 1) {
           alert("Pobedili ste");
-          exit();
+          sendResult(username, moves);
           return false;
       }
       else if(winner == 2) {
           alert("Nazalost, niste uspeli da pobedite");
-          exit();
+          sendResult(username, moves);
           return false;
       }
   } else {
@@ -94,11 +94,11 @@ function computer_turn() {
   check_board();
   if(winner == 1) {
       alert("Pobedili ste");
-      exit();
+      sendResult(username, moves);
   }
   else if(winner == 2) {
       alert("Nazalost, niste uspeli da pobedite");
-      exit();
+      sendResult(username, moves);
   }
   
   return;
@@ -130,9 +130,9 @@ function check_board() {
     return;
 }
 
-function exit() {
-  fields.forEach(field => field.removeEventListener('click', game));
-}
+//function sendResult(username, moves) {
+//  fields.forEach(field => field.removeEventListener('click', game));
+//}
 
 // id polja na koje je kliknuto
 function reply_click(clicked_id) {
@@ -147,3 +147,59 @@ function restart_game(){
                         0, 0, 0];
   let winner=0;
 }
+
+//pozovamo kad neko pobedi
+const sendResult = async (username, moves) => {
+    try { 
+        const URL = 'http://localhost:3002/';
+        const response = await fetch(URL, {
+            method : 'POST',
+            headers : {
+                'Content-Type': 'application/json'
+            },
+            mode : 'cors',
+            body : JSON.stringify({
+                name : username,
+                score : moves
+            })
+        });
+        const jsonResponse = await response.json();
+        console.log(jsonResponse);
+        
+    } catch (err) {
+        console.error(err);
+    }
+}
+
+// pokupi rezultate
+const getResult = async () => {
+    try {
+        const URL = 'http://localhost:3002/';
+        const response = await fetch(URL, {
+            method : 'GET',
+            headers : {
+                'Content-Type': 'application/json'
+            }
+        });
+        const jsonResponse = await response.json();
+        console.log(jsonResponse);   
+             
+    } catch (err) {
+        console.log(err);
+    }
+};
+
+function loadUsername() {
+    let person = prompt("Enter your name", "");
+    let username = "";
+
+    if (person == null || person == "") {
+        username = "Unknown";
+    } else {
+        username = person;
+    }
+    
+    return username;
+};
+
+//docker-compose -f -docker-compose.yml up
