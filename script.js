@@ -1,3 +1,5 @@
+import { exists } from "fs";
+
 let id; //id kliknutog polja
 let moves = 0; //broj poteza
 let clicked_fields = [0, 0, 0,  //detektujemokoje smo polje kliknuli 
@@ -41,16 +43,16 @@ function player_turn() {
   if(moves == 9) { //proveravamo da li je nereseno ili je ipak neko pobedio
       check_board();
       
-      if(winner == 0) 
-          alert("Nereseno")
-      else if (winner == 1)
+      if(winner === 0) 
+          alert("Nereseno");
+      else if (winner === 1)
           alert("Pobedili ste");
       else
           alert("Nazalost, niste uspeli da pobedite");
       return false;
   }
   
-  if(clicked_fields[id] == 0) {
+  if(clicked_fields[id] === 0) {
       document.getElementById(id).innerHTML = "X";
       clicked_fields[id] = 1;
       
@@ -58,14 +60,16 @@ function player_turn() {
       moves++;
       
       check_board();
-      if(winner == 1) {
-          alert("Pobedili ste");
+      if(winner === 1) {
           sendResult(username, moves);
+          exit();
+          //alert("Pobedili ste");
           return false;
       }
-      else if(winner == 2) {
-          alert("Nazalost, niste uspeli da pobedite");
+      else if(winner === 2) {
           sendResult(username, moves);
+          console.log(getResult());
+          //alert("Nazalost, niste uspeli da pobedite");
           return false;
       }
   } else {
@@ -103,12 +107,15 @@ function computer_turn() {
   
   check_board();
   if(winner == 1) {
-      alert("Pobedili ste");
       sendResult(username, moves);
+      exit();
+      console.log(getResult());
+      //alert("Pobedili ste");
   }
   else if(winner == 2) {
-      alert("Nazalost, niste uspeli da pobedite");
-      sendResult(username(), moves);
+      sendResult(username, moves);
+      console.log(getResult());
+      //alert("Nazalost, niste uspeli da pobedite");
   }
   
   return;
@@ -178,7 +185,24 @@ const sendResult = async (username, moves) => {
     } catch (err) {
         console.error(err);
     }
-}
+};
 
-
+// pokupi rezultate
+const getResult = async () => {
+    try {
+        const URL = 'http://localhost:3002/';
+        const response = await fetch(URL, {
+            method : 'GET',
+            headers : {
+                'Content-Type': 'application/json'
+            }
+        });
+        const jsonResponse = await response.json();
+        console.log(jsonResponse);   
+             
+    } catch (err) {
+        console.log(err);
+    }
+};
 //docker-compose -f -docker-compose.yml up
+console.log(username + ' ' + moves);
