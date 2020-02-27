@@ -6,11 +6,7 @@
 
   Nakon pritiska na dugme start i unetog imena kreće igra(čovek-X protiv računara-O). Cilj je da u nekoj vrsti, koloni ili dijagonali budu tri ista znaka. 
 
-  Da biste pokrenuli igricu na svom računaru potrebno je da posedujete:
-    -Node.js
-    -npm
-    -docker
-    -mongoDB  
+  Da biste pokrenuli igricu na svom računaru potrebno je da posedujete: Node.js, npm, docker, mongoDB.  
 
 ## Pokretanje :computer:
 
