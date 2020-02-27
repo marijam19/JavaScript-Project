@@ -41,7 +41,7 @@ class LeaderBoard extends React.Component {
         <table className="board">
           
           <thead>
-            <tr class="header">
+            <tr className="header">
               <th>POSITION</th>
               <th>USERNAME</th>
               <th>SCORE</th>

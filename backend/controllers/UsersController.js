@@ -6,7 +6,7 @@ class UsersController {
     this.request = request;
     this.response = response;
 
-    this.mongoDBService = new MongoDBService('mongodb://root:example@localhost:27017', 'memory-game');
+    this.mongoDBService = new MongoDBService('mongodb://root:example@localhost:27017', 'tic-tac-toe');
   }
 
   static registerRoutes(app) {
