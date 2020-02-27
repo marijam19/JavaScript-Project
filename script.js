@@ -4,19 +4,16 @@ let clicked_fields = [0, 0, 0,  //detektujemo koje smo polje kliknuli
                       0, 0, 0, 
                       0, 0, 0];
 let winner;
-
+let username="";
 var fields = document.querySelectorAll('.field');
 
 fields.forEach(field => field.addEventListener('click', game));
 
 function loadUsername() {
-    let username = document.getElementById("p_name").value;
+    username = document.getElementById("p_name").value; //ucitavamo ime igraca
     
-    console.log(username);       
-    return username;
+    console.log(username);
 };
-
-let username=loadUsername(); //ucitavamo ime igraca
 
 function start_game() {
   let enter_name = document.getElementById("player");
@@ -35,15 +32,15 @@ function game() {
         
         this.removeEventListener('click', game);
         moves++;
-     
+        //console.log(username + ' from game');
         check_board(); 
         if(winner===1){
-            //console.log(username);
-            sendResult(username, moves);
+            
+            sendResult(username);
             restart_game();
         }
         else if(winner===2){
-            sendResult('computer', moves);
+            sendResult('computer');
             restart_game();
         }
         else {
@@ -106,7 +103,7 @@ function restart_game(){
 }
 
 //pozovamo kad neko pobedi
-const sendResult = async (username, moves) => {
+const sendResult = async (username) => {
     try { 
         const URL = 'http://localhost:3002/';
         const response = await fetch(URL, {
@@ -116,8 +113,7 @@ const sendResult = async (username, moves) => {
             },
             mode : 'cors',
             body : JSON.stringify({
-                name : username,
-                score : moves
+                name : username
             })
         });
         const jsonResponse = await response.json();
